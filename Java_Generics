@@ -1,0 +1,183 @@
+import java.util.*;
+//Strong typing -- Type rules restrict incompatible operations and conversions.
+//Java is commonly described as strongly typed.
+
+class wildCard
+{
+    static void display(List<?> list)
+    {
+        for (Object item : list)
+            System.out.println(item);
+    }
+
+    //extends is for reading - Number or below Number - Upper limit of class is Number
+    static double sum(List<? extends Number> list)
+    {
+        double total = 0;
+        for (Number n : list) {
+            total += n.doubleValue();
+        }
+        return total;
+    }
+
+    //super is for adding - Integer or above Integer - Lower limit of class is Integer - Integer/Number/Object
+    static void addNumbers(List<? super Integer> list) {
+        list.add(10);
+        list.add(20);
+    }
+
+    public static void main(String[] args)
+    {
+        // 1. Demonstrate List<?>
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie"); //convert array to list
+        System.out.println("Displaying strings:");
+        display(names);
+
+        // 2. Demonstrate List<? extends Number>
+        List<Integer> numbers = Arrays.asList(10, 20, 30);
+        System.out.println("\nSum of integers: " + sum(numbers));
+
+        List<Double> decimals = Arrays.asList(1.5, 2.5, 3.5);
+        System.out.println("Sum of doubles: " + sum(decimals));
+
+        // 3. Demonstrate List<? super Integer>
+        List<Number> numberList = new ArrayList<>();
+        addNumbers(numberList);
+
+        System.out.println("\nAfter adding integers:");
+        display(numberList);
+    }
+}
+/// ////////////////////////////////////////////////////////////////////
+class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(10);
+        // numbers.add("Hello"); // Compilation error
+
+//        ArrayList numbersRaw = new ArrayList(); // Raw type
+//        numbersRaw.add(10);
+//        numbersRaw.add("Hello");
+//        // An incorrect cast when retrieving an element can cause ClassCastException.
+//        int retrieve =  (Integer) numbersRaw.get(1);
+        Box intBx = new Box();
+        intBx.setValue(10);
+        System.out.println(intBx.getValue());
+
+
+//        Box strBx = new Box();
+//        strBx.setValue("10");
+//        System.out.println(intBx.getValue());
+
+
+        GenBox<Integer> intGenBx = new GenBox<>();
+        intGenBx.setValue(10);
+        //intGenBx.setValue("10");
+        System.out.println(intGenBx.getValue());
+
+        GenBox<Double> doubleGenBx = new GenBox<>();
+        doubleGenBx.setValue(10.0);
+        System.out.println(doubleGenBx.getValue());
+
+        GenBox<String> strGenBx = new GenBox<>();
+        strGenBx.setValue("10");
+        System.out.println(strGenBx.getValue());
+
+        ObjectBox b = new ObjectBox();
+        b.setValue("Hello");
+        Integer n = (Integer) b.getValue(); // Compiles okay but fails at runtime
+
+        //AutoBoxing and UnBoxing
+        // Box<int> b = new Box<>(); // Compilation error
+//        Box<Integer> b = new Box<>(); // Valid
+//        b.setValue(10); // Autoboxing
+//        int x = b.getValue(); // Unboxing
+
+        Pair<Integer, String> p1 = new Pair<>(1, "Java");
+        Pair<Double,String> p2 = new Pair<>(99.5,"Price");
+    }
+}
+
+class Box
+{
+    int value;
+    void setValue(int value) {
+        this.value = value;
+    }
+    int getValue() {
+        return value;
+    }
+}
+
+class GenBox<T>
+{
+    T value;
+    void setValue(T value) {
+        this.value = value;
+    }
+    T getValue() {
+        return value;
+    }
+}
+
+class Pair<K, V>
+{
+    K key;
+    V value;
+    Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+    void display() {
+        System.out.println("Key: " + key);
+        System.out.println("Value: " + value);
+    }
+}
+
+
+class ObjectBox {
+    Object value;
+    void setValue(Object value) {
+        this.value = value;
+    }
+    Object getValue() {
+        return value;
+    }
+}
+
+class Utility
+{
+    public static <T> void printValue(T value) {
+        System.out.println(value);
+    }
+
+    public static <T> T getFirst(T a, T b) {
+        return a;
+    }
+
+    public static void main(String[] args)
+    {
+        printValue(100);
+        printValue("Hello");
+        printValue(25.5);
+        printValue(true);
+
+        String s = getFirst("Java", "Python");
+        Integer n = getFirst(10, 20);
+    }
+}
+
+class Calculator {
+    //Bounded type parameters
+    public static <T extends Number> double square(T n)
+    {
+        return n.doubleValue() * n.doubleValue();
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(square(5)); // 25.0
+        System.out.println(square(2.5)); // 6.25
+        //square("Hello"); // Compilation error
+    }
+}
