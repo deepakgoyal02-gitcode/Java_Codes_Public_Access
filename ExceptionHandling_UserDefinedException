@@ -65,3 +65,81 @@ public class Excp {
         int c = a/b;
     }
 }
+
+
+/////////////////////////////////////////////////////////////
+interface Area {
+    void area(int x, int y);
+   default void isSymmetricalFigure() throws myNewException
+    {
+        throw new myNewException();
+    }
+}
+
+//interface Area2 {
+//    void rectangle(int l, int b);
+//}
+//
+//interface Area3 {
+//    void square(int a);
+//
+//}
+class Triangle implements Area{
+    @Override
+    public void area(int x, int y) {
+        double area= 0.5 * x * y;;
+        System.out.println(area);
+    }
+}
+class Rectangle implements Area {
+    @Override
+    public void area(int l, int b) {
+        int area = l * b;
+        System.out.println(area);
+    }
+}
+class Square implements Area{
+    @Override
+    public void area(int a,int b) {
+        if(a==b){
+        int area=a*a;
+        System.out.println(area);}
+        else {
+            System.out.println("It is not a square");
+        }
+    }
+    @Override
+    public void isSymmetricalFigure()
+    {
+        System.out.println("In Square");
+    }
+
+}
+class circle implements Area{
+    public void area(int a,int radius)
+    {
+        float pi = 3.14f;
+        float area = pi * radius * radius;
+    }
+
+}
+class main {//extends InterfaceDemo {
+    public static void main(String[] args)  {
+        Triangle tri= new Triangle();
+        tri.area(10,20);
+        try{
+        tri.isSymmetricalFigure();
+        }
+        catch(myNewException abc)
+        {
+            System.out.println(abc);
+        }
+        Square sqr = new Square();
+        sqr.isSymmetricalFigure();
+    }
+}
+
+
+
+
+
