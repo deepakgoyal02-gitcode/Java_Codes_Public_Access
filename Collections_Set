@@ -1,0 +1,177 @@
+import java.util.*;
+
+class Main1 {
+    public static void main(String[] args) {
+
+        TreeSet<String> mySet = new TreeSet<>();
+
+        // add()
+        mySet.add("Orange");
+        mySet.add("Apple");
+        mySet.add("Banana");
+        mySet.add("Mango");
+
+        mySet.add("Apple");
+
+//        Because String already overrides: hashCode(), equals() (Of Object Class)
+//        So HashSet identifies duplicate String values automatically.
+
+        // print HashSet
+        System.out.println(mySet);
+
+        // size()
+        System.out.println(mySet.size());
+
+        // contains()
+        System.out.println(mySet.contains("Mango"));
+
+        // remove()
+        mySet.remove("Banana");
+
+        // isEmpty()
+        System.out.println(mySet.isEmpty());
+
+        // iterate using for-each
+        for (String fruit : mySet) {
+            System.out.println(fruit);
+        }
+
+        // clear()
+        mySet.clear();
+
+        System.out.println(mySet);
+
+    }
+}
+class Employee  implements Comparable<Employee>
+{
+    int empID;
+    String empName;
+    double empSalary;
+
+    Employee(int pEmpID, String pEmpName, double pEmpSalary)
+    {
+        empID = pEmpID;
+        empName = pEmpName;
+        empSalary = pEmpSalary;
+    }
+
+    public int myDoubleCompare(double oEmpSalary)
+    {
+        if(this.empSalary > oEmpSalary)
+            return +1;
+        if(this.empSalary < oEmpSalary)
+            return -1;
+        return 0;
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        return myDoubleCompare(o.empSalary);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empID=" + empID +
+                ", empName='" + empName + '\'' +
+                ", empSalary=" + empSalary +
+                '}';
+    }
+    @Override
+    public boolean equals(Object obj) //to let java know when will we consider a user-defined object to be equal using hashcode()
+    {
+
+        if (this == obj)
+            return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Employee e = (Employee) obj;
+        return this.empID == e.empID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(empID);
+    }
+}
+
+class HashSetDemo {
+    public static void main(String[] args) {
+        //As Set make sures that duplicates do not exist in it. For inbuilt types, natural equals is valid
+        //i.e. normal for numbers and lexicographical for Strings.
+        //For UserDefined Class, Java will not have any way of knowing how to consider one object equal to another.
+        //So we need to implement equals() and hashcode().
+        //If not done then Java will use these two methods default implementation present in Object class.
+        //which compares only object references
+        HashSet<Employee> myHashSet = new HashSet<>();
+
+        LinkedHashSet<Employee> linkEmployeeSet = new LinkedHashSet<>();
+        //LinkedHashSet Maintains the insertion order, and is not sorted by design
+        //hence later on also we cannot order it by Comparable or comparator
+        //Collections.sort(linkEmployeeSet,new EmpIDComparator());  //--Collections.sort is expecting a LIST not SET
+
+        //Unlike TreeSet, which uses compareTo() or Comparator to identify duplicates, HashSet and LinkedHashSet use:
+        //hashCode() – to identify the hash bucket.
+        //equals() – to check whether two objects are actually equal.
+        //As Employee class overrides equals() and hashCode() on EMP ID. duplicates will be decided on EMP ID
+        //If these are not implemented then,
+        //Java uses the default implementations from the Object class, which generally compare object references.
+
+        linkEmployeeSet.add(new Employee(101,"Sanjay",1200.0));
+        linkEmployeeSet.add(new Employee(102,"Vijay",1500.0));
+        linkEmployeeSet.add(new Employee(103,"Sumant",1600.0));
+        linkEmployeeSet.add(new Employee(104,"Gitesh",2000.0));
+        linkEmployeeSet.add(new Employee(106,"Suraj",1800.0));
+        linkEmployeeSet.add(new Employee(101,"Suraj",1800.0)); //because of equals() and hashcode() this becomes duplicate
+        linkEmployeeSet.add(new Employee(105,"Sanjay",1700.0));
+
+        Iterator<Employee> myIt = linkEmployeeSet.iterator();
+        while(myIt.hasNext())
+            System.out.println(myIt.next());
+
+
+        //The order of TreeSet cannot be changed after creation
+        //As TreeSet is already sorted we have to specify the comparator at the time of instantiation
+        //or the TreeSet will use its internal ordering using Comparable (for User-defined Classes)
+        //or natural ordering (for In-Built Classes)
+
+        //If there is no comparable in the class Employee during TreeSet Creation
+        //This will give run-time exception
+        //java.lang.ClassCastException
+        //After comparable is implemented the class will automatically pick it
+
+        TreeSet<Employee> myTreeSet = new TreeSet<>(linkEmployeeSet);
+        //as my linkEmployeeSet stores EMPLOYEE objects and Employee is implementing Comparable so above statement is valid
+        //and hence is sorted on SALARY
+
+        myIt = myTreeSet.iterator();
+        while(myIt.hasNext())
+            System.out.println(myIt.next());
+
+        System.out.println("Checking based on Salary");
+
+        System.out.println(myTreeSet.headSet(new Employee(104,"Sanjay",1700.0)));
+        System.out.println(myTreeSet.tailSet(new Employee(104,"Sanjay",1700.0)));
+        System.out.println(myTreeSet.subSet(new Employee(104,"Sanjay",1700.0), new Employee(101, "", 1800.0)));
+
+//        TreeSet<Employee> myDupTreeSet = new TreeSet<>(new EmpIDComparator()); //Comparator given at the time of creation
+//        myDupTreeSet.addAll(myTreeSet);
+//
+//        for(Employee emp:myDupTreeSet)
+//            System.out.println(emp);
+//
+//        System.out.println(myDupTreeSet.higher(new Employee(104,"Sanjay",1700.0))); //Object bigger than this
+//        System.out.println(myDupTreeSet.lower(new Employee(104,"Sanjay",1700.0))); //Object smaller than this
+//        System.out.println(myDupTreeSet.floor(new Employee(104,"Sanjay",1700.0))); //Object equal to this
+//        System.out.println(myDupTreeSet.headSet(new Employee(104,"Sanjay",1700.0))); //subset bigger than this object
+//        System.out.println(myDupTreeSet.tailSet(new Employee(104,"Sanjay",1700.0)));
+//        System.out.println(myDupTreeSet.subSet(new Employee(101,"Sanjay",1700.0), new Employee(104, "", 1800.0)));
+//        System.out.println(myDupTreeSet.comparator());
+
+        //Treeset once given the sorting order criteria cannot be given again
+        //Collections.sort(myTreeSet,new EmpIDComparator()); //--Collections.sort is expecting a LIST not SET
+    }
+}
