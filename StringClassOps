@@ -1,0 +1,223 @@
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
+
+public class StringClassOperations {
+    public static void main(String[] args)
+    {
+        int[] abc = {2,1};
+        Arrays.sort(abc);
+        String[] names = {"John", "Bob", "Alice"};
+
+        List<String> namesList = Arrays.asList(names);
+
+        for (String name : names)
+        {
+            System.out.println(name);
+        }
+
+        String s = "He is 10 years old.";
+        System.out.println(s);
+        System.out.println(s.charAt(3));
+
+        Deque<String> objA = new ArrayDeque<>();
+        objA.pop();
+        String s1 =  new String("He is 10 years old.");
+        s1 = "He is 9 years old.";
+        System.out.println(s1);
+
+        int lengthOfString = "He is 10 years old.".length();
+        //String.valueOf();
+        System.out.println(lengthOfString);
+        System.out.println(s1.length());
+        //The String Constructors
+
+        String s7 = new String("abc");
+
+
+       char[] chars = { 'a', 'b', 'c' };
+        System.out.println(chars[1]);
+        String sch = new String(chars);
+        System.out.println(s7.charAt(1));
+        char[] chars1 = { 'a', 'b', 'c', 'd', 'e', 'f' };
+        String s17 = new String(chars1, 2, 4);
+        System.out.println(s17 + " " + sch);
+
+        // Construct one String from another.
+        char[] c = {'J', 'a', 'v', 'a'};
+        String s19 = new String(c);
+        String s20 = new String(s1);
+        System.out.println(s19);
+        System.out.println(s20);
+
+        // Construct string from subset of char array.
+        byte[] ascii = {65, 66, 67, 68, 69, 70,97};
+        String s91 = new String(ascii,2,4);
+        System.out.println(s91);
+        String s2 = new String(ascii);
+        System.out.println(s2);
+
+        System.out.println(s.length());
+
+        //String Literals
+        int a = 10;
+        String s21 = "abc"; // use string literal
+        //Because a String object is created for every string literal
+        System.out.println("abcdcfery".length());
+        System.out.println();
+        //String Concatenation
+        int age = 9;
+
+        
+        String s90 = "He is " + age + " years old.";
+        System.out.println(s90);
+
+        //String Concatenation with Other Data Types
+        int age1 = 9;
+        String s4 = "He is " + age1 + " years old.";
+        System.out.println(s4);
+
+        String s422 = "four: " + 2 + 2;
+        System.out.println(s422);
+        String s42 = "four: " + (2 + 2);
+        System.out.println(s42);
+//        String Conversion and toString( )
+//        convert data into its string representation
+//        String.valueOf()
+//        For the primitive types, valueOf( ) returns a string that contains the
+//        human-readable equivalent of the value with which it is called.
+//        For objects, valueOf( ) calls the toString( ) method on the object
+//        Every class implements toString( ) because it is defined by Object.
+//        To implement toString( ), simply return a String object that contains the human-readable
+//        string that appropriately describes an object of your class.
+
+//        Data Conversion Using valueOf( )
+        int num = 100;
+        double price = 99.99;
+        boolean flag = true;
+//         Convert to String using valueOf()
+        String strNum = String.valueOf(num);
+        String strPrice = String.valueOf(price);
+        String strFlag = String.valueOf(flag);
+
+        System.out.println("String value of num: " + strNum.length());
+        System.out.println("String value of price: " + strPrice);
+        System.out.println("String value of flag: " + strFlag);
+
+        if(flag == false)
+        {
+            System.out.println("True");
+        }
+//        System.out.println(num.length()); //-- this will not work
+
+        //Character Extraction
+//        charAt() - extract a single character from a String
+        char[] chars10 = { 'a', 'b', 'c', 'd', 'e', 'f' };
+        String s5 = new String(chars10);
+        System.out.println(chars10[5]);
+        System.out.println(s5.charAt(5));
+        char ch;
+        ch = "abc".charAt(1);
+        System.out.println(ch);
+
+
+//        getChars( ) - more than one character at a time
+
+        String sDemo = "This is a demo of the getChars method.";
+
+        int start = 0;
+        int end = 17;
+        char[] charArray = new char[100];
+        sDemo.getChars(start, sDemo.length(), charArray, 1 );
+        System.out.println(charArray);
+
+//        toCharArray( ) - convert all the characters in a String object into a character array
+        String str = "Hello";
+
+        //System.out.println(str[2]); //this will not work
+        char[] charArray1 = str.toCharArray();
+
+        System.out.println("Characters in the string:");
+        for (int i=0;i<charArray1.length;i++) {
+            System.out.print(charArray1[i]);
+            System.out.print(str.charAt(i) + " ");
+            System.out.println();
+        }
+
+
+        //String Comparison
+        //equals( ) and equalsIgnoreCase( )
+        String s9 = "Hello";
+        String s911 = "Hello";
+        System.out.println("Hello".equals("Hello"));
+        System.out.println("Hello".equals("Good-bye"));
+        System.out.println("Hello".equals("HELLO"));
+        System.out.println("Hello".equalsIgnoreCase("HELLO"));
+
+        //startsWith( ) and endsWith( )
+        System.out.println("Foobar".endsWith("obar"));
+        System.out.println("Foobar".startsWith("Foo"));
+
+        //equals( ) Versus ==
+        String s123 = "Hello";
+        String s234 = new String(s1);
+        System.out.println(s123 + " equals " + s234 + " -> " +
+                s1.equals(s234));
+        System.out.println(s123 + " == " + s234 + " -> " + (s123 == s234));
+        s123=s234;
+        System.out.println(s123 + " == " + s234 + " -> " + (s123 == s234));
+
+       // compareTo() - Not HERE
+
+//        Searching Strings
+//        indexOf() - Searches for the first occurrence of a character or substring.
+//        lastIndexOf() - Searches for the last occurrence of a character or substring.
+        String sSen = "Now is the time for all good men " +
+                "to come to the aid of their country.";
+        System.out.println(sSen);
+        System.out.println("indexOf(t) = " + sSen.indexOf('t'));
+        System.out.println("lastIndexOf(t) = " + sSen.lastIndexOf('t'));
+        System.out.println("indexOf(the) = " + sSen.indexOf("the"));
+        System.out.println("lastIndexOf(the) = " + sSen.lastIndexOf("the"));
+        System.out.println("indexOf(t, 10) = " + sSen.indexOf('t', 12));
+        System.out.println("lastIndexOf(t, 60) = " + sSen.lastIndexOf('t', 60));
+        System.out.println("indexOf(the, 10) = " + sSen.indexOf("the", 10));
+        System.out.println("lastIndexOf(the, 60) = " + sSen.lastIndexOf("the", 60));
+
+
+//        Modifying a String
+//        substring()
+        String org = "This is a test. This is, too.";
+        String result = "";
+        result = org.substring(2, 6); //6 specifies stopping point
+        System.out.println(result);
+
+        //concat()
+        String s1One = "one";
+        String s2Two = s1One.concat("two").concat("Alpha");
+        System.out.println(s2Two);
+
+        //replace()
+        String sRep = "Hello".replace('l', ' ');
+        System.out.println(sRep);
+
+        //Changing the Case of Characters Within a String
+        String sTest = "This is a test.";
+        System.out.println("Original: " + s);
+        String upper = s.toUpperCase();
+        String lower = s.toLowerCase();
+        System.out.println("Uppercase: " + upper);
+        System.out.println("Lowercase: " + lower);
+
+        //Joining Strings -- join( ) method - concatenate two or more strings, separating each string with a
+        //delimiter, such as a space or a comma
+
+        String result1 = String.join("@@@@@@", "Alpha", "Beta", "Gamma");
+        System.out.println(result1);
+        //result1 = String.join("\" ", "John", "ID#: 569", "E-mail: John@HerbSchildt.com");
+        result1 = String.join("John", "ID#: 569", "E-mail: John@HerbSchildt.com","@@@@@@", "Alpha", "Beta", "Gamma");
+        System.out.println(result1);
+        System.out.println(sTest);
+    }
+}
