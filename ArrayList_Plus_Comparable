@@ -1,0 +1,123 @@
+import java.util.*;
+class Student implements Comparable<Student>
+{
+    int id;
+    String name;
+    double GPA;
+
+    Student(int pID,String pName,double pGPA)
+    {
+        id = pID;
+        name = pName;
+        GPA = pGPA;
+    }
+
+    @Override
+    //meaning if this.id > s.id then the above will return a +ve value
+    //+VE VALUE MEANS THAT THE SWAP IS REQUIRED
+    //because of current element is bigger than the next in line
+    //swap is required so that we can put the bigger element at the back
+    public int compareTo(Student o) {
+        if(this.GPA < o.GPA)
+            return -1;
+        if(this.GPA > o.GPA)
+            return 1;
+        if(this.GPA == o.GPA)
+        {
+            return o.name.compareTo(this.name);
+        }
+        return 0;
+    }
+
+    @Override
+    // In built types can be printed normally because they override toString() in them
+    // but user-defined types will require explicit toString() override by programmer
+    public String toString() {
+        String toPrint = "id" + " " + GPA + " " + name + ", " ;
+        return toPrint;
+    }
+}
+
+class ArrayListDemo {
+   public static void main(String[] args) {
+        ArrayList<String> al = new ArrayList<>();
+        al.add("India");
+        al.add("USA");
+        al.add("France");
+        al.add("England");
+        al.add("Russia");
+        al.add("China");
+        al.add(1, "Brazil");    //insert at index 1 -- moving rest one position towards right
+        al.add(3,"South Africa");
+
+//        String val = al.get(6);
+//        al.set(6, val + " -->Changed"); //update value
+//        System.out.println("ll after change: " + al);
+
+//        al.remove("South Africa");
+//        System.out.println("Size of al: " + al.size());
+//        System.out.println("Contents of al: " + al);
+
+//        Collections.sort(al);
+//        System.out.println("Contents of al: " + al);
+
+//        System.out.println(al.subList(1, 6));
+
+
+       ArrayList<Student> studList = new ArrayList<>();
+       studList.add(new Student(102, "John",10));
+       studList.add(new Student(101, "Paul",9));
+       studList.add(new Student(108, "Bob",7));
+       studList.add(new Student(103, "Jim",4));
+       studList.add(new Student(104, "Kim",5));
+       studList.add(new Student(106, "Carrie",8));
+       studList.add(new Student(105, "Jane",2));
+       studList.add(new Student(107, "Mary",7));
+
+//       studList.remove(2);
+//        for(Student s:studList)
+//            System.out.print(s + ", ");
+        System.out.println();
+
+
+        Collections.sort(studList);
+        //Collections.sort(studList,Collections.reverseOrder());
+        System.out.print(studList);
+        System.out.println();
+
+        Iterator<Student> it = studList.listIterator();
+
+        while(it.hasNext()) {
+            if(it.next().name.equals("Mary"))
+               it.remove();  // studList.remove(it.next()); -- //This is not the way to do it
+        }
+
+        System.out.print(studList);
+        System.out.println();
+
+//        ListIterator<Student> lit = studList.listIterator();
+//        while(lit.hasNext())
+//            System.out.print(lit.next() + ", ");
+//
+//        System.out.println();
+//
+//        while(lit.hasPrevious())
+//            System.out.print(lit.previous() + ", ");
+
+       System.out.println();
+       //Convert to Array
+       System.out.println(al);
+       String[] str = al.toArray(new String[10]);
+       System.out.println("My Strings");
+       for(String s:str)
+           System.out.print(s + " ");
+
+       //Convert Array to ArrayList
+       List<String> convrtList = Arrays.asList(str); //Arrays.asList() returns a fixed-size list backed by the original array.
+       //convrtList.remove(2); //so this cannot work or get() and set() can work
+
+       //here is the solution
+       List<String> convrtListMod = new ArrayList<>(Arrays.asList(str));
+       //System.out.println(convrtListMod);
+    }
+}
