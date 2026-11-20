@@ -1,0 +1,44 @@
+public class wrapperConversion {
+
+    public static void main(String[] args) {
+        //String to PRIMITIVE
+        //parseInt() is a static method is Wrapper Class
+        //parse methods are more important as even though it converts to primitive, java will autobox to wrapper
+        int intVar = Integer.parseInt("100");
+        double doubleVar = Double.parseDouble("20.5");
+        //java.lang.NumberFormatException: For input string: "20.5ABC"
+        try {
+            double num4exp = Double.parseDouble("20.5ABC");
+        }
+        catch(NumberFormatException n)
+        {
+            System.out.println("Invalid Number format");
+        }
+
+
+
+        //WRAPPER object to PRIMITIVE
+        Integer obj = Integer.valueOf(100);
+        //intValue() and doubleValue() are member methods of WRAPPER classes, so an object is required to call them
+        int a = obj.intValue();
+        double b = obj.doubleValue();
+
+
+        //String to WRAPPER Object
+        //valueOf() is a static method is Wrapper Class
+        Integer intObj = Integer.valueOf("100");
+
+        //java.lang.NumberFormatException: For input string: "100anchor"
+        //Integer num4expObj = Integer.valueOf("100anchor");
+
+        Double doubleObject = Double.valueOf("25.5");
+
+
+        //PRIMITIVE to STRING
+        String s1 = Integer.toString(100);  // String s1 = String.valueOf(100); - Also Okay
+        System.out.println(s1);
+
+
+
+    }
+}
