@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+//var cannot be used to declare an instance variable, a class field, or a method's parameter or return type.
+public class varType {
+    //var varA; //a class field/instance variable not allowed. Also class variables (static) not allowed
+
+    public var display(var abc) {  //a method's parameter or return type not allowed
+        var message = "Hello";
+        System.out.println(message);
+        return message;
+    }
+
+    public static void main(String[] args) {
+
+//        String name = "Deepak";
+//        int age = 40;
+//        double salary = 50000.0;
+
+        var var1 = new varType();
+
+        var x; //variable of type var must always be initialized
+        var xNull = null; //variable of type var cannot be initialized with null alone
+
+        var nameVar = "Deepak";
+        var ageVar = 30; //infers ageVar is an int
+        ageVar = 40;
+        //ageVar = "forty";
+        var salaryVar = 50000.0;
+
+        //used in collections
+        ArrayList<String> names1 = new ArrayList<>();
+        ArrayList<String> names2 = new ArrayList<>();
+        var names3 = new ArrayList<String>();
+
+
+        GenBox<Integer> stObj = new GenBox<>();
+        var stObj1 = new GenBox<>();
+        //used in for each loop
+        var names = List.of("Amit", "Neha", "Ravi");
+
+        for (var name : names) {
+            System.out.println(name);
+        }
+
+        // here x2 is type of interface List
+        List<String> x2 = new ArrayList<>();
+        x2 = new LinkedList<>(); // Valid
+
+        //but when same type is used for var it will not work because it is related to class and not interface
+        var x1 = new ArrayList<String>();
+        x1 = new LinkedList<String>(); // Compilation error
+
+    }
+}
