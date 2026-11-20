@@ -1,1 +1,90 @@
+class LinkedListDemo {
+    public static void main(String[] args) {
 
+        LinkedList<String> ll = new LinkedList<>();
+
+        ll.add("India");
+        ll.add("USA");
+        ll.add("France");
+        ll.add("England");
+        ll.add("Russia");
+        ll.add("China");
+        ll.add(1, "Brazil");
+        ll.add(3,"South Africa");
+//        ll.addFirst();
+//
+//        String val = ll.get(2);
+//        ll.set(2, val + " Changed"); //update value
+        //System.out.println("ll after change: " + ll);
+
+
+//        Queue<String> ll2 = new ArrayDeque<>(ll); // this will allow only methods under queue interface to be used
+        // -- even though object is of ArrayDeque which implements Deque interface - hence addFirst/Last etc will not work
+//        Deque<String> ll2 = new LinkedList<>(ll);
+
+        // -- ArrayDeque is generally faster than LinkedList for Deque operations
+        // -- Although both LinkedList and ArrayDeque implement the Deque interface
+        // -- in Java (allowing insertion, deletion, and access at both ends),
+        // -- they rely on fundamentally different underlying data structures,
+        // -- leading to significant performance and memory differences.
+
+        // -- Use ArrayDeque by default whenever you need a Queue, Deque, or Stack in Java.
+        // -- Java's official documentation recommends ArrayDeque over both LinkedList and the legacy Stack class.
+        // -- Use LinkedList only if you strictly need to store null values
+        // -- or need guaranteed O(1) insertions/removals in the middle of a list using a ListIterator.
+
+
+        // -- Queue is an interface; LinkedList and ArrayDeque are common implementations
+        // -- When you instantiate an object with
+//         Queue<String> queue = new ArrayDeque<>(),
+        // -- the type of the reference variable (Queue) determines which methods you can access at compile time,
+        // -- not the underlying object type (ArrayDeque).
+
+        // -- Because the Queue interface only defines standard FIFO queue operations (like add(), offer(), poll(), and peek()),
+        // -- methods specific to double-ended queues—such as addFirst() and addLast() — are not exposed through that reference.
+
+
+        Deque<String> ll2 = new LinkedList<>(ll);
+        ll2.addFirst("Italy");
+        ll2.addLast("Germany");
+//
+//        ll2.offerFirst("Italy");
+//        ll2.offerLast("Germany");
+
+//        ll2.pollFirst();
+//        ll2.pollLast();
+
+        //ll2.removeFirst();
+        //ll2.removeLast();
+
+        //ll2.getFirst();
+        //ll2.getLast();
+
+        //ll2.peekFirst();
+        //ll2.peekLast();
+
+        ll2.offer("Nepal"); //this will add the element to the end of the list (to mimic rear addition in QUEUE
+        ll2.poll(); //this will remove element from the start of the list (to mimic remove from the front in QUEUE
+        //ll2.remove(); //this will also remove element from the start of the list (to mimic remove from the front in QUEUE
+        //ll2.remove("China"); // this will remove the first occurrence of element mentioned (China)
+        //ll2.remove(2); //this will remove index 2 element starting the list with index 0
+        //ll2.peek();
+
+
+        ll2.push("Bhutan"); //push should add element at the top, which in this is front/start of the list
+        ll2.push("South Korea");
+        ll2.push("Japan");
+        System.out.println(ll2.pop()); //pop will add element to top i.e. the front/start of the list
+        System.out.println(ll2.peek());
+
+        Iterator<String> it = ll2.iterator(); //Iterator will work on ArrayDeque but list-iterator will not
+        while(it.hasNext())
+            System.out.print(it.next() + ", ");
+        //System.out.println("ll2 : " + ll2);
+
+
+        //Stack - push pop peek
+        //QUEUE - offer poll peek
+        //DEQUE - addFirst/Last - offerFirst/Last , removeFirst/Last - pollFirst/Last, getFirst/Last - peekFirst/Last
+    }
+}
