@@ -64,7 +64,7 @@ class ArrayListDemo {
 //        System.out.println(al.subList(1, 6));
 
 
-       ArrayList<Student> studList = new ArrayList<>();
+       List<Student> studList = new ArrayList<>();
        studList.add(new Student(102, "John",10));
        studList.add(new Student(101, "Paul",9));
        studList.add(new Student(108, "Bob",7));
