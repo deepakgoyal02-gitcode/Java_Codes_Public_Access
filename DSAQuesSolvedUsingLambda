@@ -1,0 +1,40 @@
+// Given a route in a straight line, N buses operate between various bus stations. 
+// There is a workstation at the start of the route. 
+// The distances of the bus stations from the workstation are calculated. 
+// The transportation authority wants to decrease the number of buses that it operates in the city. 
+// If any buses are found to have overlapping routes, then these buses will be replaced by a single bus. 
+// The authority wants to determine how many buses will remain after the buses with overlapping routes have been eliminated. 
+// Write an algorithm to find how many buses will remain after the buses with overlapping routes have been eliminated.
+
+
+class Solution {
+    public static int countRemainingBuses(int[][] routes)
+    {
+        if (routes == null || routes.length == 0) {
+            return 0;
+        }
+
+        Arrays.sort(routes, (a, b) -> Integer.compare(a[0], b[0]));
+
+// Below code needs to be used in place of above if lambda expression is not used
+// Arrays.sort(routes, new Comparator<int[]>() {
+//     @Override
+//     public int compare(int[] a, int[] b) {
+//         return Integer.compare(a[0], b[0]);
+//     }
+// });
+        
+        int count = 1;
+        int currentEnd = routes[0][1];
+
+        for (int i = 1; i < routes.length; i++) {
+            if (routes[i][0] <= currentEnd) {
+                currentEnd = Math.max(currentEnd, routes[i][1]);
+            } else {
+                count++;
+                currentEnd = routes[i][1];
+            }
+        }
+        return count;
+    }
+}
