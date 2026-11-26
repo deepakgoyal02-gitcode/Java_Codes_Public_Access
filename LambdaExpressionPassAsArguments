@@ -1,1 +1,37 @@
 //Lambda Expression passed as Arguments
+interface StringFunc {
+    String func(String n);
+}
+
+class FirstLambdaExpression {
+
+    static String stringOp(StringFunc sf, String s) {
+        return sf.func(s);
+    }
+
+    public static void main(String[] args)
+    {
+        String inStr = "Lambdas add power to Java";
+        String outStr;
+        System.out.println("Here is input string: " + inStr);
+
+        StringFunc sf1 = (str) -> str.toUpperCase();
+        
+        outStr = stringOp(sf1, inStr); //same as outStr = sf1.func(inStr);
+//        outStr = stringOp((str) -> str.toUpperCase(), inStr);
+        System.out.println("The string in uppercase: " + outStr);
+
+
+        StringFunc sf2 = (str) -> {
+            String result = "";
+            int i;
+            for(i = 0; i < str.length(); i++)
+                if(str.charAt(i) != ' ')
+                    result += str.charAt(i);
+            return result;
+        };
+        outStr = stringOp(sf2, inStr); //same as  outStr = sf2.func(inStr);
+        System.out.println("The string with spaces removed: " + outStr);
+
+    }
+}
